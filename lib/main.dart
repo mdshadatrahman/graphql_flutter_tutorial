@@ -46,6 +46,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: GraphQLProvider(
         client: client,
         child: SafeArea(
@@ -81,18 +82,36 @@ class _MyAppState extends State<MyApp> {
                   return SizedBox(
                     height: 900,
                     width: double.infinity,
-                    child: ListView.builder(
-                      itemCount: repositories.length,
-                      itemBuilder: (context, index) {
-                        final repo = repositories[index];
-                        return Text(
-                          repo['name'] ?? '',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        );
-                      },
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16, top: 10),
+                      child: ListView.builder(
+                        itemCount: repositories.length,
+                        itemBuilder: (context, index) {
+                          final repo = repositories[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: Row(
+                              children: [
+                                Text(
+                                  '${index + 1}.',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  repo['name'] ?? '',
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   );
                 },
